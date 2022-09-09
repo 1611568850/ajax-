@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #contents{
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="btn">点击发送</div>
+    <div id="contents"></div>
+    <script>
+        const btn = document.getElementById('btn')
+        const contents = document.getElementById('contents')
+        btn.onclick = ()=>{
+            const xhr = new XMLHttpRequest()
+            xhr.onreadystatechange = ()=>{
+                if(xhr.readyState ===4){
+                    if(xhr.status>=200 && xhr.status<300){
+                        console.log(xhr.response)
+                        contents.innerHTML = `${xhr.response}`
+                    }
+                }
+            }
+            xhr.open('GET','http://127.0.0.1:8080/test_get?name=laoliu&age=18')
+            xhr.open('GET','http://127.0.0.1:8080/test_get2/laoliu/18')
+            xhr.send()
+        }
+    </script>
+</body>
+</html>

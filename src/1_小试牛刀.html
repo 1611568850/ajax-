@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #content{
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h3>1_小试牛刀</h3>
+    <button id="btn">点击发送请求</button>
+    <div id="content"></div>
+    <script type="text/javascript">
+        const btn = document.getElementById('btn')
+        const content = document.getElementById('content')
+        btn.onclick = ()=> {
+            const xhr = new XMLHttpRequest()
+            xhr.onreadystatechange = ()=>{
+                if(xhr.readyState===4){
+                    console.log(xhr.response);
+                    content.innerHTML = `${xhr.response}`
+                }
+            }
+            xhr.open('GET','http://127.0.0.1:8080/test_get');
+            xhr.send()
+        }
+    </script>
+</body>
+</html>
