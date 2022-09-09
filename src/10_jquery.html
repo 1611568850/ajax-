@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>10_jQuery封装的ajax</title>
+		<style>
+			#content{
+				width: 300px;
+				height: 100px;
+				border: 1px solid black;
+				margin-top: 10px;
+			}
+		</style>
+		<script type="text/javascript" src="./js/jquery.min.js"></script>
+	</head>
+	<body>
+		<h3>该页面是测试：jQuery封装的ajax</h3>
+		<button id="btn1">点我发送请求(jQuery-ajax-get)</button>
+		<button id="btn2">点我发送请求(jQuery-ajax-post)</button>
+		<div id="content"></div>
+		<script type="text/javascript" >
+			const btn1 = $('#btn1')
+			const btn2 = $('#btn2')
+			const content = $('#content')
+			btn1.click(()=>{
+				// $.ajax({
+				// 	method:'GET',
+				// 	url:'http://127.0.0.1:8080/get_jQuery',
+				// 	data:{school:'fafafa'},
+				// 	dataType:'json',
+				// 	success: (result)=>{
+				// 		console.log(result)
+				// 		content.append(`
+				// 		<div>car:${result.car}</div>
+				// 		<div>price:${result.price}</div>
+				// 		`)
+				// 	},
+				// 	error: ()=>{}
+				// })
+				// get请求的缩略写法
+				// $.get('http://127.0.0.1:8080/get_jQuery',{school:'fafa'}, (result)=>{
+				// 		console.log(result)
+				// 		content.append(`<div>car1:${result.car}</div><div>price:${result.price}</div>`)
+				// },'json')
+				// post请求的缩略写法
+				$.post('http://127.0.0.1:8080/get_jQuery_post',{school:'fafa'}, (result)=>{
+						console.log(result)
+						content.append(`<div>car1:${result.car}</div><div>price:${result.price}</div>`)
+				},'json')
+			})
+			
+		</script>
+	</body>
+</html>

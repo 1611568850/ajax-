@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		#content{
+			width: 300px;
+			height: 100px;
+			border: 1px solid black;
+			margin-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<h3>该页面是测试：ajax请求的异常与超时处理</h3>
+	<button id="btn">点我发送请求(原生js-ajax-get)</button>
+	<div id="content"></div>
+	<script type="text/javascript">
+		const btn = document.getElementById('btn')
+		const content = document.getElementById('content')
+		btn.onclick = ()=>{
+			const xhr = new XMLHttpRequest()
+			xhr.onreadystatechange = ()=>{
+				if(xhr.readyState===4){
+					if(xhr.status<300 && xhr.status>=200){
+						console.log(xhr.response)
+						const {name,age}=xhr.response
+						content.innerHTML = (`
+						<ul>
+							<li>name:${name}</li>
+							<li>age:${age}</li>
+						</ul>	
+						`)
+					}
+				}
+			}
+			xhr.open('GET','http://127.0.0.1:8080/get_person')
+
+			xhr.responseType='json'
+
+			xhr.onerror = ()=>{
+				alert('网断了')
+			}
+			xhr.timeout=2000
+			xhr.send()
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style: none;
+        }
+        #contents{
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="btn">点击发送</div>
+    <div id="contents"></div>
+    <script type="text/javascript">
+        const btn = document.getElementById('btn')
+        const contents = document.getElementById('contents')
+        btn.onclick = ()=>{
+            const xhr = new XMLHttpRequest()
+            xhr.onreadystatechange = ()=>{
+                if(xhr.readyState===4){
+                    if(xhr.status>=200&&xhr.status<300){
+                        console.log(xhr.response)
+                        // const result = JSON.parse(xhr.response)
+                        // 加上49行的xhr.responseType = 'json'后会自动解析
+                        const result = xhr.response
+                        const {name,age} = result
+                        contents.innerHTML = (`
+                        <ul>
+                            <li>name:${name}</li>
+                            <li>age:${age}</li>
+                        </ul>
+                        `)
+                    }
+                }
+            }
+            xhr.open('GET','http://127.0.0.1:8080/get_person')  
+            //用于指定返回数据的格式
+            xhr.responseType ='json'
+            xhr.send()
+        }
+    </script>
+</body>
+</html>
